@@ -2,6 +2,8 @@ package br.com.jose.projeto.gerenciador_tarefas.model;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,7 +20,8 @@ public class Tarefa {
 
     @Column(nullable = false)
     private String nome;
-
+    
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataEntrega;
 
     @Column(nullable = false)

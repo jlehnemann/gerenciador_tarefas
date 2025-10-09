@@ -81,4 +81,14 @@ public class TarefaController {
         tarefaRepository.deleteById(id);
         return ResponseEntity.noContent().build(); // Retorna 204 No Content, indicando sucesso na remoção.
     }
+    
+	 // 6. Criar múltiplas tarefas de uma vez (em lote - util para testar com mais praticidade)
+	 //POST http://localhost:8080/api/tarefas/lote
+	 @PostMapping("/lote")
+	 public ResponseEntity<List<Tarefa>> criarMultiplasTarefas(@RequestBody List<Tarefa> tarefas) {
+	     //Lista de tarefas para salvar:	     
+	     List<Tarefa> tarefasSalvas = tarefaRepository.saveAll(tarefas);
+	     
+	     return new ResponseEntity<>(tarefasSalvas, HttpStatus.CREATED);
+	 }
 }
