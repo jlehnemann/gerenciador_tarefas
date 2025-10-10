@@ -24,10 +24,10 @@ public class TarefaController {
 	@Autowired // Injeção de Dependência: O Spring vai gerenciar a instância de TarefaRepository e "injetá-la" aqui para nós.
     private TarefaRepository tarefaRepository;
 
-    // --- ENDPOINTS ---
+    // --- ENDPOINTS REST ---
 
     // 1. Criar uma tarefa (CREATE)
-    // POST http://localhost:8080/api/tarefas
+    // endpoint REST: POST http://localhost:8080/api/tarefas
     @PostMapping
     public ResponseEntity<Tarefa> criarTarefa(@RequestBody Tarefa tarefa) {
         // @RequestBody: Pega o JSON do corpo da requisição e converte para um objeto Tarefa.
@@ -36,14 +36,14 @@ public class TarefaController {
     }
 
     // 2. Consultar todas as tarefas (READ)
-    // GET http://localhost:8080/api/tarefas
+    // endpoint REST: GET http://localhost:8080/api/tarefas
     @GetMapping
     public List<Tarefa> listarTodasAsTarefas() {
         return tarefaRepository.findAll();
     }
 
     // 3. Consultar uma tarefa específica pelo ID (READ)
-    // GET http://localhost:8080/api/tarefas/1
+    // endpoint REST: GET http://localhost:8080/api/tarefas/1
     @GetMapping("/{id}")
     public ResponseEntity<Tarefa> buscarTarefaPorId(@PathVariable Long id) {
         // @PathVariable: Pega o valor do 'id' da URL.
@@ -57,7 +57,7 @@ public class TarefaController {
     }
 
     // 4. Atualizar uma tarefa existente (UPDATE)
-    // PUT http://localhost:8080/api/tarefas/1
+    // endpoint REST: PUT http://localhost:8080/api/tarefas/1
     @PutMapping("/{id}")
     public ResponseEntity<Tarefa> atualizarTarefa(@PathVariable Long id, @RequestBody Tarefa detalhesTarefa) {
         return tarefaRepository.findById(id)
@@ -71,7 +71,7 @@ public class TarefaController {
     }
     
     // 5. Remover uma tarefa (DELETE)
-    // DELETE http://localhost:8080/api/tarefas/1
+    // endpoint REST: DELETE http://localhost:8080/api/tarefas/1
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarTarefa(@PathVariable Long id) {
         if (!tarefaRepository.existsById(id)) {
@@ -82,8 +82,8 @@ public class TarefaController {
         return ResponseEntity.noContent().build(); // Retorna 204 No Content, indicando sucesso na remoção.
     }
     
-	 // 6. Criar múltiplas tarefas de uma vez (em lote - util para testar com mais praticidade)
-	 //POST http://localhost:8080/api/tarefas/lote
+	 // 6. Criar múltiplas tarefas de uma vez (em lote - util para testar várias entradas com mais praticidade)
+	 //endpoint REST: POST http://localhost:8080/api/tarefas/lote
 	 @PostMapping("/lote")
 	 public ResponseEntity<List<Tarefa>> criarMultiplasTarefas(@RequestBody List<Tarefa> tarefas) {
 	     //Lista de tarefas para salvar:	     
